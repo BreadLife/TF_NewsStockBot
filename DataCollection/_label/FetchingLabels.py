@@ -15,7 +15,8 @@ month = 5
 day = 1
 
 browser = webdriver.Chrome(ChromeDriverManager().install())
-td = open("../_data/test_label", "w", encoding='UTF-8')
+
+td = open("test_label.txt", "w", encoding='UTF-8')
 
 sauce = 'https://bigcharts.marketwatch.com/historical/default.asp?symb=amd&closeDate=' + str(month) + '%2F' + str(
     day) + '%2F' + str(year) + '&x=0&y=0'
@@ -31,10 +32,11 @@ while day <= 31:
 
     except Exception as e:
         td.write("\n")
-        print(e)
+        print("No data")
+
+    day +=1
+
     sauce = 'https://bigcharts.marketwatch.com/historical/default.asp?symb=amd&closeDate=' + str(month) + '%2F' + str(
         day) + '%2F' + str(year) + '&x=0&y=0'
     browser.get(sauce)
     print(day)
-    day +=1
-print(day)

@@ -15,7 +15,7 @@ d_raw = open("../_data/test_data", "r", encoding='UTF-8')
 d_ref = open("test_data_refined", "w", encoding='UTF-8')
 
 #def semaine_pour_jour(day):
-    # pour mois de may
+#pour mois de mai
 
 for news in d_raw:
     for i in news:

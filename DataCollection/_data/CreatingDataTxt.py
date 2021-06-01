@@ -24,6 +24,7 @@ from langdetect import detect
 
 #basic stuff
 import sys
+import time
 
 stock_name = "amd"
 
@@ -50,10 +51,10 @@ while date1n <= 31:
     date1 = "5/" + str(date1n) + "/2020"
     date2 = "5/" + str(date2n) + "/2020"
 
-    Recent = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="hdtbMenus"]/div/g-popup[2]/div[1]'))) #Recent
+    Recent = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="hdtbMenus"]/span[1]/g-popup/div[1]'))) #Recent
     Recent.send_keys(Keys.RETURN)
 
-    button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="cdrlnk"]'))) #Custom Range
+    button = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="lb"]/div/g-menu/g-menu-item[8]/div/div/span'))) #Custom Range
     button.click()
 
     parameter1 = browser.find_element_by_xpath('//*[@id="OouJcb"]') #Beginning of interval

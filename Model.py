@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 train_data = open("train_data", "r")
 train_label = open("train_label", "r")
 test_data = open("DataCollection/_data/test_data", "r")
-test_label = open("DataCollection/_data/test_label", "r")
+test_label = open("DataCollection/_label/test_label.txt", "r")
 
 train_data = np.asarray(list(train_data))
 train_label = np.asarray(list(train_label))
@@ -17,7 +17,7 @@ test_label = np.asarray(list(test_label))
 
 #(train_data, train_labels), (test_data, test_labels) = Exdata.load_data(num_words=1000)
 
-print(train_data[])
+#print(train_data[])
 
 #word_index = Exdata.get_word_index()
 

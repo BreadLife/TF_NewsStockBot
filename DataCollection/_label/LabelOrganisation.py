@@ -10,7 +10,7 @@ import numpy
 import math
 
 # fichier avec le raw data
-d_raw = open("../_data/test_label", "r", encoding='UTF-8')
+d_raw = open("test_label.txt", "r", encoding='UTF-8')
 
 # fichier ou on va écrire le résultat final
 d_ref = open("D:/PyCharmProjects/TensorFlow/Projects/FinalProject/DataCollection/_label/test_labels_refined", "w", encoding='UTF-8')
