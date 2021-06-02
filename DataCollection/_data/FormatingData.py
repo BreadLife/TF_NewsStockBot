@@ -51,6 +51,8 @@ for news in d_raw:
             print(i + " has been removed")
         elif i == "AMD":
             print(i + " has been removed")
+        elif i == '"':
+            print(i + " has been removed")
         else :
             d_ref.write(i)
 
