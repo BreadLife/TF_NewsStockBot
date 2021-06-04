@@ -22,11 +22,17 @@ import numpy as np
 #detection language
 from langdetect import detect
 
+#other
+from CalendarFetch import WorkScheadule
+
 #basic stuff
 import sys
 import time
 
 stock_name = "amd"
+year = 2020
+month = 5
+workday = 1
 
 date1n = 1
 date2n = 1
@@ -48,8 +54,8 @@ def languageDetect(s):
     return language
 
 while date1n <= 31:
-    date1 = "5/" + str(date1n) + "/2020"
-    date2 = "5/" + str(date2n) + "/2020"
+    date1 = str(month) + "/" + str(date1n) + "/" + str(year)
+    date2 = str(month) + "/" + str(date2n) + "/" + str(year)
 
     Recent = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="hdtbMenus"]/span[1]/g-popup/div[1]'))) #Recent
     Recent.send_keys(Keys.RETURN)
@@ -68,31 +74,34 @@ while date1n <= 31:
     Enter = browser.find_element_by_xpath('//*[@id="T3kYXe"]/g-button') #Begin Search
     Enter.send_keys(Keys.RETURN)
     print(date1n)
+    workday = WorkScheadule.workday_check(date1n, month, year)
+
     date1n +=1
     date2n +=1
 
-    for i in range(1,11):
-        try:
-            info = browser.find_element_by_xpath('//*[@id="rso"]/div[' + str(i) +']/g-card/div/div/div[2]/a/div/div[2]').text
-            str1 = info.splitlines()
-            raw_arr = np.asarray(str1)
-            ref_arr = np.delete(raw_arr, [0, 3])
-            print(info)
-            if (languageDetect(info) == "en"):
-                print("Language: Anglais\n")
-                # print(ref_arr)
-                td.write(str(date1n - 1) + "\t")
-                td.write(str(ref_arr) + "\n")
-            elif (languageDetect(info) == "fr"):
-                print("Language: Français\n")
-                print("Mauvaise Langue")
-            elif(languageDetect(info) == "es"):
-                print("Language: espagnol\n")
-                print("Mauvaise Langue")
-            else :
-                print("Language: autre\n")
-                print("Mauvaise Langue")
-        except Exception as e:
-            print(e, "This was number: ", i, "in", raw_arr)
-            #td.write(str(raw_arr))
+    if workday == 1:
+        for i in range(1,11):
+            try:
+                info = browser.find_element_by_xpath('//*[@id="rso"]/div[' + str(i) +']/g-card/div/div/div[2]/a/div/div[2]').text
+                str1 = info.splitlines()
+                raw_arr = np.asarray(str1)
+                ref_arr = np.delete(raw_arr, [0, 3])
+                print(info)
+                if (languageDetect(info) == "en"):
+                    print("Language: Anglais\n")
+                    # print(ref_arr)
+                    td.write(str(date1n - 1) + "\t")
+                    td.write(str(ref_arr) + "\n")
+                elif (languageDetect(info) == "fr"):
+                    print("Language: Français\n")
+                    print("Mauvaise Langue")
+                elif(languageDetect(info) == "es"):
+                    print("Language: espagnol\n")
+                    print("Mauvaise Langue")
+                else :
+                    print("Language: autre\n")
+                    print("Mauvaise Langue")
+            except Exception as e:
+                print(e, "This was number: ", i, "in", raw_arr)
+                #td.write(str(raw_arr))
     td.write("\n")
