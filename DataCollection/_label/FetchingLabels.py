@@ -35,6 +35,6 @@ while day <= ValidDate.number_of_days_in_month(month):
         OpeningPrice = browser.find_element_by_xpath('//*[@id="historicalquote"]/tbody/tr[4]/td').text
         Pourcentage = 100*(1-(float(ClosingPrice)/float(OpeningPrice)))
         print(str(Pourcentage) + "%")
-        #td.write(str(Pourcentage) + "\n")
+        td.write(str(Pourcentage) + "\n")
 
     day+=1
