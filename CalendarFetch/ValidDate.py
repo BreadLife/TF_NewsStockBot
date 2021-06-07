@@ -2,10 +2,11 @@ import datetime
 import holidays
 from DataCollection import _data
 from DataCollection import _label
+
 day = 1
 month = 5
 year = 2020
-us_holidays = holidays.CountryHoliday('US', prov=None)
+us_holidays = holidays.CountryHoliday(years=[2020], country='US', prov=None)
 
 def number_of_days_in_month(month):
     if month == 1:      #Janvier

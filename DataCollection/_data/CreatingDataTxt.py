@@ -23,7 +23,7 @@ import numpy as np
 from langdetect import detect
 
 #other
-from CalendarFetch import WorkScheadule
+from CalendarFetch import ValidDate
 
 #basic stuff
 import sys
@@ -53,7 +53,7 @@ def languageDetect(s):
     language = detect(s)
     return language
 
-while date1n <= 31:
+while date1n <= ValidDate.number_of_days_in_month(month):
     date1 = str(month) + "/" + str(date1n) + "/" + str(year)
     date2 = str(month) + "/" + str(date2n) + "/" + str(year)
 
@@ -74,34 +74,28 @@ while date1n <= 31:
     Enter = browser.find_element_by_xpath('//*[@id="T3kYXe"]/g-button') #Begin Search
     Enter.send_keys(Keys.RETURN)
     print(date1n)
-    workday = WorkScheadule.workday_check(date1n, month, year)
 
     date1n +=1
     date2n +=1
 
-    if workday == 1:
-        for i in range(1,11):
-            try:
-                info = browser.find_element_by_xpath('//*[@id="rso"]/div[' + str(i) +']/g-card/div/div/div[2]/a/div/div[2]').text
-                str1 = info.splitlines()
-                raw_arr = np.asarray(str1)
-                ref_arr = np.delete(raw_arr, [0, 3])
-                print(info)
-                if (languageDetect(info) == "en"):
-                    print("Language: Anglais\n")
-                    # print(ref_arr)
-                    td.write(str(date1n - 1) + "\t")
-                    td.write(str(ref_arr) + "\n")
-                elif (languageDetect(info) == "fr"):
-                    print("Language: Français\n")
-                    print("Mauvaise Langue")
-                elif(languageDetect(info) == "es"):
-                    print("Language: espagnol\n")
-                    print("Mauvaise Langue")
-                else :
-                    print("Language: autre\n")
-                    print("Mauvaise Langue")
-            except Exception as e:
-                print(e, "This was number: ", i, "in", raw_arr)
-                #td.write(str(raw_arr))
+    for i in range(1,11):
+        try:
+            info = browser.find_element_by_xpath('//*[@id="rso"]/div[' + str(i) +']/g-card/div/div/div[2]/a/div/div[2]').text
+            str1 = info.splitlines()
+            raw_arr = np.asarray(str1)
+            ref_arr = np.delete(raw_arr, [0, 3])
+            print(info)
+            if (languageDetect(info) == "en"):
+                print("Language: Anglais\n")
+                # print(ref_arr)
+                td.write(str(date1n - 1) + "\n")
+                for w in ref_arr:
+                    td.write(w + " ")
+                td.write("\n")
+            else :
+                print("Language: autre\n")
+                print("Mauvaise Langue")
+        except Exception as e:
+            print(e, "This was number: ", i, "in", raw_arr)
+            #td.write(str(raw_arr))
     td.write("\n")

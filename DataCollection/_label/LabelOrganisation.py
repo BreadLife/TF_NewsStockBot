@@ -30,7 +30,6 @@ def premier_jour_de_semaine(day):
         print("Pas premier jour de semaine\n")
         return False
 
-
 for number in d_raw:
     i+=1
     try :
